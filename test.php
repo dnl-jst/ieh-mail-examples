@@ -19,7 +19,7 @@ else
 }
 
 # create an email address, type redirect
-$oSecondResponse = $oIehMail->createMailbox(mt_rand(10000, 99999) . '@ieh-mail.de', 'support@sitebench.de');
+$oSecondResponse = $oIehMail->createMailbox(mt_rand(10000, 99999) . '@ieh-mail.de', 'support@ieh-mail.de');
 
 if (!$oIehMail->isError($oSecondResponse))
 {
