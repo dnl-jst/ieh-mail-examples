@@ -32,6 +32,12 @@ class IehMail
 		$this->sApiKey = $sApiKey;
 	}
 
+	public function getDomains()
+	{
+		return $this->doRequest('get-domains');
+	}
+
+
 	public function createMailbox($sEmail)
 	{
 		return $this->createMail($sEmail, self::MAIL_TYPE_MAILBOX);
@@ -40,6 +46,16 @@ class IehMail
 	public function createRedirect($sEmail, $sTarget)
 	{
 		return $this->createMail($sEmail, self::MAIL_TYPE_REDIRECT, $sTarget);
+	}
+
+	public function getMailValidity($iEmailId, $sAuthKey)
+	{
+		$aArguments = array(
+			'email_id' => $iEmailId,
+			'auth_key' => $sAuthKey
+		);
+
+		return $this->doRequest('get-mail-validity', $aArguments);
 	}
 
 	public function renewMail($iEmailId, $sAuthKey)
@@ -120,7 +136,7 @@ class IehMail
 		return $oResponse;
 	}
 
-	protected function doRequest($sMethod, $aArguments)
+	protected function doRequest($sMethod, $aArguments = array())
 	{
 		$hCurl = curl_init();
 
